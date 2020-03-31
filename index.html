@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="header">
+        <p class="highscore-viewer"></p>
+        <p class="timer">Time left: <span id="seconds">0</span></p>
+    </header>
+    <div class="center-page">
+
+        <!-- <h1 class="main-phrase"><span id="question-text"></span></h1>
+        <div id="description"></div> -->
+            <!--<button id="button-2">2. </button><br>
+        <button id="button-3">3. </button><br>
+        <button id="button-4">4. </button><br>
+        <div class="checker"></div> -->
+        
+
+
+
+    </div>
+
+
+
+    <script>
+        //Stuff that is always in the header
+        var viewHighscore = document.querySelector(".highscore-viewer");
+        var countDown = document.querySelector("#timer");
+
+
+        viewHighscore.textContent = "View Highscores";
+
+        //first "page" describing quiz etc.
+        // function homePage () {} (this will be a function later when home button is pressed)
+        // var mainDiv = createElement("div")
+        var center = document.querySelector(".center-page");
+        var introPage = document.createElement("h1");
+        var pTag = document.createElement("p");
+        var startQuiz = document.createElement("button");
+        
+        // mainDiv.setAttribute("style", "textAlign: center;");
+        center.setAttribute("style", "textAlign: center;");
+        introPage.textContent = "Javascript Fundamentals Quiz";
+        // introPage.setAttribute("style", "textAlign: center;");
+        document.body.appendChild(introPage);
+        pTag.textContent = "This is a short quiz to determine your aptitude for Javascript programming.";
+        document.body.appendChild(pTag);
+        startQuiz.textContent = "Start!";
+        document.body.appendChild(startQuiz);
+        
+
+
+        //need event listener for start button:
+        startQuiz.addEventListener("click", takeQuiz());
+        
+
+        //array of objects containing questions:
+
+        function takeQuiz() {
+            var questions = [{
+                    question: "Commonly used data types DO NOT include:",
+                    choices: ["strings", "booleans", "alerts", "numbers"],
+                    answer: "alerts"
+
+                },
+                {
+                    question: "The condition in an if/else statement is enclosed within _____.",
+                    choices: ["blee", "blah", "bloo", "blop"],
+                    answer: "bloo"
+
+                },
+                {
+                    question: "The sky is which color?",
+                    choices: ["pink", "yellow", "green", "blue"],
+                    answer: "blue"
+
+                },
+                {
+                    question: "Is quarantine: ",
+                    choices: ["fun", "stupid", "weird", "not great"],
+                    answer: "weird"
+
+                }
+            ];
+
+            //get it on the page:
+
+            for (var i = 0; i < questions.length; i++);
+
+
+        }
+    </script>
+
+</body>
+
+</html>
