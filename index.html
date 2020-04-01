@@ -13,12 +13,9 @@
         <p class="highscore-viewer"></p>
         <p class="timer">Time left: <span id="seconds">60</span></p>
     </header>
-    <div class="center-page"></div>
+    <!-- <div class="center-page"></div> -->
 
-    <button class="answer-button" id="button1"></button>
-    <button class="answer-button" id="button2"></button>
-    <button class="answer-button" id="button3"></button>
-    <button class="answer-button" id="button4"></button>
+    <!-- <div id="buttons"></div> -->
 
     <!-- SCRIPT -->
     <script>
@@ -27,14 +24,28 @@
         var countDown = document.querySelector("#timer");
         // var center = document.querySelector(".center-page"); deal with this later
 
-
         viewHighscore.textContent = "View Highscores";
 
+
         //add eventlistener for viewing highscores
-        viewHighscore.addEventListener("click", function () {
+        viewHighscore.addEventListener("click", highScores);
+
+
+        function highScores() {
+            var highDiv = document.createElement("h1");
+            introPage.textContent = "Highscores:";
+            pTag.textContent = "Highest past quiz scores";
+            startQuiz.setAttribute("style", "display: none;");
+            document.body.appendChild(highDiv);
+
+            var scoreDiv = document.createElement("div");
+            scoreDiv.setAttribute("class", "highscores");
+            document.body.appendChild(scoreDiv);
+            // viewHighscore.addEventListener("click", homePage);
+            // console.log(scoreDiv);
             //create a page of saved highscores 
             //add a home button (returns to description page of quiz)
-        })
+        }
 
         ///////////////first "page" describing quiz etc.///////////////////////////////////////////////
         // function homePage () {} (this will be a function later when home button is pressed)
@@ -75,12 +86,12 @@
                 if (secondsLeft === 0) {
                     clearInterval(timerInterval);
                     console.log("end time");
-                    //endGame function
+                    // endGame();
                 } else {
-                    // console.log(secondsLeft);
-                    //endGame function
+                    // endGame();
                 }
             }, 1000);
+
 
         }
         /////////function to BEGIN TAKING QUIZ/////////////////////////////////////////////////////////
@@ -90,63 +101,74 @@
             // //create element for question
             // var questionEl = document.createElement("h1");
             startTimer();
+            renderQuestions();
 
-            var questionCounter = 0;
+            function renderQuestions() {
+                var questionCounter = 0;
 
-            //create array of objects with questions and answers
-            var questions = [{
-                    question: "Commonly used data types DO NOT include:",
-                    choices: ["strings", "booleans", "alerts", "numbers"],
-                    answer: "alerts"
+                //create array of objects with questions and answers
+                var questions = [{
+                        question: "Commonly used data types DO NOT include:",
+                        choices: ["strings", "booleans", "alerts", "numbers"],
+                        answer: "alerts"
 
-                },
-                {
-                    question: "The condition in an if/else statement is enclosed within _____.",
-                    choices: ["blee", "blah", "bloo", "blop"],
-                    answer: "bloo"
+                    },
+                    {
+                        question: "The condition in an if/else statement is enclosed within _____.",
+                        choices: ["blee", "blah", "bloo", "blop"],
+                        answer: "bloo"
 
-                },
-                {
-                    question: "The sky is which color?",
-                    choices: ["pink", "yellow", "green", "blue"],
-                    answer: "blue"
+                    },
+                    {
+                        question: "The sky is which color?",
+                        choices: ["pink", "yellow", "green", "blue"],
+                        answer: "blue"
 
-                },
-                {
-                    question: "Is quarantine: ",
-                    choices: ["fun", "stupid", "weird", "not great"],
-                    answer: "weird"
+                    },
+                    {
+                        question: "Is quarantine: ",
+                        choices: ["fun", "stupid", "weird", "not great"],
+                        answer: "weird"
+
+                    }
+                ];
+
+                //just make qestions appear on page
+
+                for (i = 0; i < questions.length; i++) {
+                    introPage.textContent = questions[questionCounter].question;
+                    pTag.textContent = "";
+                    startQuiz.setAttribute("style", "display: none;");
+
+
+                    var newQuestion = document.createElement("div");
+                    var newButton = document.createElement("button");
+                    newButton.textContent = questions[questionCounter].choices[i];
+                    newButton.setAttribute("value", questions[questionCounter].choices[i]);
+                    newButton.setAttribute("class", "answer-button");
+                    document.body.appendChild(newButton);
+
+                    var correctAnswer = questions[questionCounter].answer;
+                    console.log(correctAnswer);
+                    
 
                 }
-            ];
 
-
-
-            var answers = [];
-
-            //this is part of the main takeQuiz function. 
-            //loop through questions
-
-            // console.log(questions[0].question);
-
-            // document.body.appendChild(questionEl);
-            // questionEl.textContent = questions.question[i];
-            //need to access question key
-            //need if else conditional to compare user's pick to correct answer
-            for (var i = 0; i < questions.length; i++); {
-                introPage.textContent = questions[0].question;
-                pTag.textContent = "";
-                startQuiz.setAttribute("style", "display: none;");
-                document.body.appendChild(introPage);
-
-                var buttons = document.querySelector(".answer-button");
-                // button1.textContent = questions[0].choices[0];
-                // document.body.appendChild(button1);
             }
 
-            questions.forEach(function(){
-                
-            })
+            function endGame() {
+                introPage.textContent = "Game Over!";
+            }
+            // document.body.addEventListener("click", function () {
+            //     console.log("clicked");
+            //     if (){
+
+            //     }
+            // }
+
+
+
+
 
         }
     </script>
