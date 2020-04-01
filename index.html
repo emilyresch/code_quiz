@@ -11,19 +11,16 @@
 <body>
     <header class="header">
         <p class="highscore-viewer"></p>
-        <p class="timer">Time left: <span id="seconds"></span></p>
+        <p class="timer">Time left: <span id="seconds">60</span></p>
     </header>
-    <div class="center-page">
+    <div class="center-page"></div>
 
-        <!-- <h1 class="main-phrase"><span id="question-text"></span></h1>
-        <div id="description"></div> -->
-        <!--<button id="button-2">2. </button><br>
-        <button id="button-3">3. </button><br>
-        <button id="button-4">4. </button><br>
-        <div class="checker"></div> -->
-    </div>
+    <button class="answer-button" id="button1"></button>
+    <button class="answer-button" id="button2"></button>
+    <button class="answer-button" id="button3"></button>
+    <button class="answer-button" id="button4"></button>
 
-<!-- SCRIPT -->
+    <!-- SCRIPT -->
     <script>
         //Stuff that is always in the header
         var viewHighscore = document.querySelector(".highscore-viewer");
@@ -34,12 +31,12 @@
         viewHighscore.textContent = "View Highscores";
 
         //add eventlistener for viewing highscores
-        viewHighscore.addEventListener("click", function(){
+        viewHighscore.addEventListener("click", function () {
             //create a page of saved highscores 
             //add a home button (returns to description page of quiz)
         })
 
-        //first "page" describing quiz etc.
+        ///////////////first "page" describing quiz etc.///////////////////////////////////////////////
         // function homePage () {} (this will be a function later when home button is pressed)
         // var mainDiv = createElement("div")
         var introPage = document.createElement("h1");
@@ -50,7 +47,8 @@
         introPage.textContent = "Javascript Fundamentals Quiz";
         // introPage.setAttribute("style", "textAlign: center;");
         document.body.appendChild(introPage);
-        pTag.textContent = "This is a short multiple-choice quiz to determine your aptitude for Javascript programming.";
+        pTag.textContent =
+            "This is a short multiple-choice quiz to determine your aptitude for Javascript programming.";
         document.body.appendChild(pTag);
         startQuiz.textContent = "Start!";
         document.body.appendChild(startQuiz);
@@ -60,10 +58,42 @@
         //need event listener for start button:
         startQuiz.addEventListener("click", takeQuiz);
 
-        //array of objects containing questions:
 
-        //function to begin taking quiz
+
+        //////////////function where TIMER starts///////////////////////////////////////////////////////////
+        var timerEl = document.getElementById("seconds");
+        var secondsLeft = 60;
+        // console.log(secondsLeft);
+
+        // console.log(timer);
+
+        function startTimer() {
+            var timerInterval = setInterval(function () {
+                timerEl.textContent = secondsLeft;
+                secondsLeft--; //decrement by 1 
+                // console.log(secondsLeft);
+                if (secondsLeft === 0) {
+                    clearInterval(timerInterval);
+                    console.log("end time");
+                    //endGame function
+                } else {
+                    // console.log(secondsLeft);
+                    //endGame function
+                }
+            }, 1000);
+
+        }
+        /////////function to BEGIN TAKING QUIZ/////////////////////////////////////////////////////////
         function takeQuiz() {
+            //select where quiz will go
+            // var bodyCenter = document.querySelector(".center-page");
+            // //create element for question
+            // var questionEl = document.createElement("h1");
+            startTimer();
+
+            var questionCounter = 0;
+
+            //create array of objects with questions and answers
             var questions = [{
                     question: "Commonly used data types DO NOT include:",
                     choices: ["strings", "booleans", "alerts", "numbers"],
@@ -90,41 +120,33 @@
                 }
             ];
 
-            //function where timer starts
-            var timerEl = document.getElementById("seconds");
-            var secondsLeft = 60;
-            
-            // console.log(timer);
-            console.log(secondsLeft);
-            
-            function startTimer () {
-                var timerInterval = setInterval(function(){
-                secondsLeft--; //decrement by 1 
-                timerEl.textContent = secondsLeft;
-                if (secondsLeft === 0){
-                    clearInterval(timerInterval);
-                    console.log("end time");
-                  // endGame(); //need to create an endgame function
-
-                }else{
-                    console.log(secondsLeft);
-                }
-            }, 1000);
-            }
 
 
+            var answers = [];
 
             //this is part of the main takeQuiz function. 
             //loop through questions
-            // for (var i = 1; i < questions.length; i++); {
 
-            // var mainQuestion = document.createElement("h1");
-            
-            // //need to get this page up:
-            // mainQuestion.textContent = questions.question[i].val();
-            // document.body.appendChild(mainQuestion);
-            // document.body.appendChild(button1);
-            // }
+            // console.log(questions[0].question);
+
+            // document.body.appendChild(questionEl);
+            // questionEl.textContent = questions.question[i];
+            //need to access question key
+            //need if else conditional to compare user's pick to correct answer
+            for (var i = 0; i < questions.length; i++); {
+                introPage.textContent = questions[0].question;
+                pTag.textContent = "";
+                startQuiz.setAttribute("style", "display: none;");
+                document.body.appendChild(introPage);
+
+                var buttons = document.querySelector(".answer-button");
+                // button1.textContent = questions[0].choices[0];
+                // document.body.appendChild(button1);
+            }
+
+            questions.forEach(function(){
+                
+            })
 
         }
     </script>
