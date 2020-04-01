@@ -15,7 +15,7 @@
     </header>
     <!-- <div class="center-page"></div> -->
 
-    <!-- <div id="buttons"></div> -->
+    <div id="buttons"></div>
 
     <!-- SCRIPT -->
     <script>
@@ -103,8 +103,21 @@
             startTimer();
             renderQuestions();
 
-            function renderQuestions() {
-                var questionCounter = 0;
+            // function endGame() {
+            //     introPage.textContent = "Game Over!";
+            // }
+            // document.body.addEventListener("click", function () {
+            //     console.log("clicked");
+            //     if (){
+
+            //     }
+            // }
+        }
+        var questionCounter = 0;
+        
+        function renderQuestions() {
+                
+                
 
                 //create array of objects with questions and answers
                 var questions = [{
@@ -135,42 +148,41 @@
 
                 //just make qestions appear on page
 
-                for (i = 0; i < questions.length; i++) {
+                // for (i = 0; i < questions.length; i++) {
                     introPage.textContent = questions[questionCounter].question;
                     pTag.textContent = "";
                     startQuiz.setAttribute("style", "display: none;");
 
 
-                    var newQuestion = document.createElement("div");
+                    // var newQuestion = document.createElement("div");
+                    var divTag = document.querySelector("#buttons");
+            console.log(divTag);
+
+                for (i = 0; i < questions[questionCounter].choices.length; i++) {
                     var newButton = document.createElement("button");
                     newButton.textContent = questions[questionCounter].choices[i];
                     newButton.setAttribute("value", questions[questionCounter].choices[i]);
                     newButton.setAttribute("class", "answer-button");
-                    document.body.appendChild(newButton);
-
+                    divTag.appendChild(newButton);
+                }
+                    // document.body.appendChild(newQuestion);
                     var correctAnswer = questions[questionCounter].answer;
                     console.log(correctAnswer);
                     
-
-                }
-
             }
 
-            function endGame() {
-                introPage.textContent = "Game Over!";
-            }
-            // document.body.addEventListener("click", function () {
-            //     console.log("clicked");
-            //     if (){
+            
+            
+    document.querySelector("div").addEventListener("click", function(e){
+        console.log(e.target); 
+        questionCounter++;
+        renderQuestions();
+// //     if = e.target.match("button").value,
+// //      compare with correct answer "alerts"
+// //      if equal, move to next q, increment questions counter and call renderQuestions();
+// //      else lose seconds
 
-            //     }
-            // }
-
-
-
-
-
-        }
+    })
     </script>
 
 </body>
