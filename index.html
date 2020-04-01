@@ -19,6 +19,71 @@
 
     <!-- SCRIPT -->
     <script>
+        var win = 0;
+        var loss = 0;
+        //create array of objects with questions and answers
+        var questions = [{
+                    question: "Commonly used data types DO NOT include:",
+                    choices: ["strings", "booleans", "alerts", "numbers"],
+                    answer: "alerts"
+
+                },
+                {
+                    question: "The condition in an if/else statement is enclosed within _____.",
+                    choices: ["[]", "()", "{}", "**"],
+                    answer: "()"
+
+                },
+                {
+                    question: "Inside which HTML element do we put the JavaScript?",
+                    choices: [ "<javascript>", "<script>", "<body>", "<scripting>"],
+                    answer: "<script>"
+
+                },
+                {
+                    question: "Where is the correct place to insert a JavaScript?",
+                    choices: ["<body>", "<head>", "<section>", "<h1>"],
+                    answer: "<body>"
+
+                },
+                {
+                    question: "What is the correct syntax for referring to an external script called 'xxx.js'",
+                    choices: ["<script href='xxx.js'>", "<script name='xxx.js'>", "<script src='xxx.js'>", "<scripting.xxx.js>"],
+                    answer: "<script src='xxx.js'>"
+
+                },
+                {
+                    question: "How do you write 'Hello World' in an alert box?",
+                    choices: ["alert('Hello world');", "send(alert.'Hello World');", "msg('Hello World')", "alertBox('Hello World');"],
+                    answer: "alert('Hello world');"
+
+                },
+                {
+                    question: "How do you create a function in JavaScript?",
+                    choices: ["function:myFunction()", "function myFunction()", "function = myfunction()", "myFunction () = function"],
+                    answer: "function myFunction()"
+
+                },
+                {
+                    question: "How does a FOR loop start?",
+                    choices: ["for (i=0; i<=5; i++)", "for(i=0; i<=5)", "for (i <= 5; i++)", "for i = 1 to 5"],
+                    answer: "for (i=0; i<=5; i++)"
+
+                },
+                {
+                    question: "How can you add a comment in a JavaScript?",
+                    choices: [ "<!--This is a comment-->", "//This is a comment", "'This is a comment", "*This is a comment*"],
+                    answer: "//This is a comment"
+
+                },
+                {
+                    question: "Which event occurs when the user clicks on an HTML element?",
+                    choices: [ "onmouseover", "onchange", "onclick", "onmouseclick"],
+                    answer: "onclick"
+
+                },
+
+            ];
         //Stuff that is always in the header
         var viewHighscore = document.querySelector(".highscore-viewer");
         var countDown = document.querySelector("#timer");
@@ -58,6 +123,7 @@
         introPage.textContent = "Javascript Fundamentals Quiz";
         // introPage.setAttribute("style", "textAlign: center;");
         document.body.appendChild(introPage);
+        
         pTag.textContent =
             "This is a short multiple-choice quiz to determine your aptitude for Javascript programming.";
         document.body.appendChild(pTag);
@@ -114,75 +180,79 @@
             // }
         }
         var questionCounter = 0;
-        
+
         function renderQuestions() {
-                
-                
-
-                //create array of objects with questions and answers
-                var questions = [{
-                        question: "Commonly used data types DO NOT include:",
-                        choices: ["strings", "booleans", "alerts", "numbers"],
-                        answer: "alerts"
-
-                    },
-                    {
-                        question: "The condition in an if/else statement is enclosed within _____.",
-                        choices: ["blee", "blah", "bloo", "blop"],
-                        answer: "bloo"
-
-                    },
-                    {
-                        question: "The sky is which color?",
-                        choices: ["pink", "yellow", "green", "blue"],
-                        answer: "blue"
-
-                    },
-                    {
-                        question: "Is quarantine: ",
-                        choices: ["fun", "stupid", "weird", "not great"],
-                        answer: "weird"
-
-                    }
-                ];
-
-                //just make qestions appear on page
-
-                // for (i = 0; i < questions.length; i++) {
-                    introPage.textContent = questions[questionCounter].question;
-                    pTag.textContent = "";
-                    startQuiz.setAttribute("style", "display: none;");
 
 
-                    // var newQuestion = document.createElement("div");
-                    var divTag = document.querySelector("#buttons");
-            console.log(divTag);
+            //just make qestions appear on page
+
+            // for (i = 0; i < questions.length; i++) {
+            if (questions[questionCounter]) {
+                introPage.textContent = questions[questionCounter].question;
+                pTag.textContent = "";
+                startQuiz.setAttribute("style", "display: none;");
+
+
+                // var newQuestion = document.createElement("div");
+                var divTag = document.querySelector("#buttons");
+                var content = document.getElementsByClassName("answer-button");
+                console.log(content);
+                while (content.length > 0) {
+                    content[0].parentNode.removeChild(content[0]);
+                }
+
+                // divTag.removeChild(content);
+
+                console.log(divTag);
 
                 for (i = 0; i < questions[questionCounter].choices.length; i++) {
                     var newButton = document.createElement("button");
                     newButton.textContent = questions[questionCounter].choices[i];
                     newButton.setAttribute("value", questions[questionCounter].choices[i]);
                     newButton.setAttribute("class", "answer-button");
+                    newButton.setAttribute("style", "display: block;");
+                    // newButton.setAttribute("style", "text-align: center;");
+
                     divTag.appendChild(newButton);
+
                 }
-                    // document.body.appendChild(newQuestion);
-                    var correctAnswer = questions[questionCounter].answer;
-                    console.log(correctAnswer);
-                    
+            } else {
+                alert("You got " + win + " right and " + loss + " wrong.");
             }
 
-            
-            
-    document.querySelector("div").addEventListener("click", function(e){
-        console.log(e.target); 
-        questionCounter++;
-        renderQuestions();
-// //     if = e.target.match("button").value,
-// //      compare with correct answer "alerts"
-// //      if equal, move to next q, increment questions counter and call renderQuestions();
-// //      else lose seconds
 
-    })
+            // document.body.appendChild(newQuestion);
+            // var correctAnswer = questions[questionCounter].answer;
+            // console.log(correctAnswer);
+
+        }
+
+
+
+        document.querySelector("div").addEventListener("click", function (e) {
+            if (e.target.value === questions[questionCounter].answer) {
+                win ++;
+                console.log(win, loss);
+
+
+            }else{
+                loss ++;
+                console.log(win, loss);
+            }
+            console.log(e.target);
+            questionCounter++;
+            renderQuestions();
+            // //     if = e.target.match("button").value, =answer
+            // //      compare with correct answer 
+            // //      if equal, move to next q, increment questions counter and call renderQuestions();
+            // //      else lose seconds
+
+        })
+
+        function winModal() {
+            var modalBox = document.createElement()
+
+        }
     </script>
 
 </body>
