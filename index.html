@@ -107,6 +107,7 @@
         var timerEl = document.getElementById("seconds");
         var secondsLeft = 60;
         var questionCounter = 0;
+        var timerInterval;
 
         //add eventlistener for viewing highscores
         viewHighscore.textContent = "View Highscores";
@@ -151,7 +152,7 @@
         //////////////function where TIMER starts///////////////////////////////////////////////////////////
 
         function startTimer() {
-            var timerInterval = setInterval(function () {
+            timerInterval = setInterval(function () {
                 timerEl.textContent = secondsLeft;
                 secondsLeft--; //decrement by 1 
                 // console.log(secondsLeft);
@@ -193,8 +194,8 @@
 
             //just make qestions appear on page
 
-            // for (i = 0; i < questions.length; i++) {
-            if (questions[questionCounter]) {
+            
+            if (questions[questionCounter]) { //condition for continuing the quiz
                 introPage.textContent = questions[questionCounter].question;
                 pTag.textContent = "";
                 startQuiz.setAttribute("style", "display: none;");
@@ -225,7 +226,10 @@
 
                 }
             } else {
-                alert("You got " + win + " right and " + loss + " wrong.");
+                // condition for finishing the quiz
+                clearInterval(timerInterval);
+                // alert("You got " + win + " right and " + loss + " wrong. You have " + secondsLeft + " seconds left.");
+                endGameModal();
 
 
             }
@@ -242,6 +246,8 @@
 
 
         main.addEventListener("click", function (e) {
+            console.log(e.target.value);
+            if (e.target.value){
             if (e.target.value === questions[questionCounter].answer) {
                 win++;
                 console.log(win, loss);
@@ -253,20 +259,21 @@
             console.log(e.target);
             questionCounter++;
             renderQuestions();
-            // //     if = e.target.match("button").value, =answer
-            // //      compare with correct answer 
-            // //      if equal, move to next q, increment questions counter and call renderQuestions();
-            // //      else lose seconds
+        }else{
+            console.log("end game");
+            renderQuestions();
+        }
+        
 
         })
         //////////////END GAME////////////////////
         function endGameModal() {
             if (win > 6) {
-                // introPage.textContent("Congratulations, you're a JavaScript pro!");
+                // remove a "hidden" class with modal's CSS
+                // 
                 alert("you win!");
-                clearTimeout(secondsLeft);
             } else {
-                // introPage.textContent("Looks like you need some more practice!");
+                // 
                 alert("you lose");
             }
 
